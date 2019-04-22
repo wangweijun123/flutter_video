@@ -6,13 +6,12 @@ Dio dio = new Dio();
 class MovieList extends StatefulWidget {
   final String movieType;
 
-  MovieList({Key key, @required this.movieType}) : super(key : key);
+  MovieList({Key key, @required this.movieType}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() {
+  _MovieListState createState() {
     return new _MovieListState();
   }
-
 }
 
 class _MovieListState extends State<MovieList> {
@@ -20,12 +19,54 @@ class _MovieListState extends State<MovieList> {
   int pagesize = 10;
 
   int total = 0;
+
   // 用数组来表示列表
   var mlist = [];
 
   @override
   Widget build(BuildContext context) {
-    return Text("内容"+widget.movieType + ' , total : ${total}');
+//    return Text("内容"+widget.movieType + ' , total : ${total}');
+    return ListView.builder(
+        itemCount: mlist.length,
+        itemBuilder: (BuildContext context, int index) {
+          var item = mlist[index];
+          return Container(
+            padding: EdgeInsets.all(10),
+            // 容器背景颜色与边框
+            decoration: BoxDecoration(color: Colors.white, border: Border(top: BorderSide(color: Colors.black))),
+            // 整体横向排列
+            child: Row(
+              children: <Widget>[
+                Image.network(
+                  item['images']['small'],
+                  width: 100,
+                  height: 150,
+                  fit: BoxFit.cover,
+                ),
+                Container(
+                  padding: EdgeInsets.only(left: 25),
+                  height: 150,
+                  width: 300,
+                  // 第二列是纵向排列
+                  child: Column(
+                    // 横向对齐模式
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    // 纵向对齐方式
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      Text('电影名称: ${item['title']}'),
+                      Text('上映年份: ${item['year']}'),
+                      Text('电影类型: ${item['genres'].join(', ')}'),
+                      Text('豆瓣评分: ${item['rating']['average']}分'),
+                      Text('主要演员: ${item['title']}'),
+                    ],
+                  ),
+                )
+
+              ],
+            ),
+          );
+        });
   }
 
   @override
@@ -34,9 +75,11 @@ class _MovieListState extends State<MovieList> {
     getMovieList();
   }
 
-  getMovieList() async{
+  getMovieList() async {
     int offset = (page - 1) * pagesize;
-    String url = 'http://www.liulongbin.top:3005/api/v2/movie/${widget.movieType}?start=$offset&count=${pagesize}';
+    // http://www.liulongbin.top:3005/api/v2/movie/coming_soon?start=0&count=10
+    String url =
+        'http://www.liulongbin.top:3005/api/v2/movie/${widget.movieType}?start=$offset&count=${pagesize}';
     print(url);
     var response = await dio.get(url);
     var data = response.data;
@@ -49,15 +92,5 @@ class _MovieListState extends State<MovieList> {
       print(mlist.length);
       print(total);
     });
-
   }
-
-
-
-
-
-
-
-
-
 }
