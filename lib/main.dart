@@ -71,9 +71,9 @@ class MyHomePage extends StatelessWidget {
           ),
           // body里面的children 所对应的页面
           body: TabBarView(children: <Widget>[
-              new MovieList(movieType: "正在热映"),
-              new MovieList(movieType: "即将热映"),
-              new MovieList(movieType: "top2509"),
+              new MovieList(movieType: "in_theaters"),
+              new MovieList(movieType: "coming_soon"),
+              new MovieList(movieType: "top250"),
           ]),
 
         ));
