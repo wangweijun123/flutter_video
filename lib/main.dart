@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './movie/list.dart';
 
 void main() => runApp(MyApp());
 
@@ -54,6 +55,7 @@ class MyHomePage extends StatelessWidget {
               padding: EdgeInsets.all(0),
             ),
           ),
+          // 底部导航栏
           bottomNavigationBar: Container(
             // tabbar 的高度
             height: 50,
@@ -64,10 +66,15 @@ class MyHomePage extends StatelessWidget {
                 tabs: <Widget>[
                   Tab(text: "正在热映", icon: Icon(Icons.movie_creation)),
                   Tab(text: "即将热映", icon: Icon(Icons.movie_filter)),
-                  Tab(text: "正在热映", icon: Icon(Icons.local_movies)),
+                  Tab(text: "top2509", icon: Icon(Icons.local_movies)),
                 ]),
           ),
-
+          // body里面的children 所对应的页面
+          body: TabBarView(children: <Widget>[
+              new MovieList(movieType: "正在热映"),
+              new MovieList(movieType: "即将热映"),
+              new MovieList(movieType: "top2509"),
+          ]),
 
         ));
   }
