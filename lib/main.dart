@@ -10,6 +10,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'video',
       home: MyHomePage(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -50,7 +51,16 @@ class MyHomePage extends StatelessWidget {
                         image: DecorationImage(
                             // 背景图片
                             image: NetworkImage(
-                                "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1555938544882&di=c9d516a41e08357a3040d80daff01f89&imgtype=0&src=http%3A%2F%2Fpic17.nipic.com%2F20111121%2F2377880_193254815351_2.jpg"))))
+                                "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1555938544882&di=c9d516a41e08357a3040d80daff01f89&imgtype=0&src=http%3A%2F%2Fpic17.nipic.com%2F20111121%2F2377880_193254815351_2.jpg")))),
+                ListTile(title: Text('用户反馈'), trailing: Icon(Icons.feedback), onTap: (){
+                  print('用户反馈');
+                }),
+                ListTile(title: Text('系统设置'), trailing: Icon(Icons.settings), onTap: (){
+                  print('系统设置');
+                },),
+                ListTile(title: Text('我要发布'), trailing: Icon(Icons.send)),
+                Divider(),
+                ListTile(title: Text('注销'), trailing: Icon(Icons.exit_to_app)),
               ],
               padding: EdgeInsets.all(0),
             ),
@@ -60,9 +70,12 @@ class MyHomePage extends StatelessWidget {
             // tabbar 的高度
             height: 50,
             // tabbar 的背景颜色
-            decoration: BoxDecoration(color: Colors.black,),
+            decoration: BoxDecoration(
+              color: Colors.black,
+            ),
             child: TabBar(
-                labelStyle: TextStyle(height: 0, fontSize: 10, color: Colors.red),
+                labelStyle:
+                    TextStyle(height: 0, fontSize: 10, color: Colors.red),
                 tabs: <Widget>[
                   Tab(text: "正在热映", icon: Icon(Icons.movie_creation)),
                   Tab(text: "即将热映", icon: Icon(Icons.movie_filter)),
@@ -71,11 +84,10 @@ class MyHomePage extends StatelessWidget {
           ),
           // body里面的children 所对应的页面
           body: TabBarView(children: <Widget>[
-              new MovieList(movieType: "in_theaters"),
-              new MovieList(movieType: "coming_soon"),
-              new MovieList(movieType: "top250"),
+            new MovieList(movieType: "in_theaters"),
+            new MovieList(movieType: "coming_soon"),
+            new MovieList(movieType: "top250"),
           ]),
-
         ));
   }
 

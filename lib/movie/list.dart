@@ -64,7 +64,6 @@ class _MovieListState extends State<MovieList> with AutomaticKeepAliveClientMixi
                   Container(
                     padding: EdgeInsets.only(left: 25),
                     height: 150,
-                    width: 300,
                     // 第二列是纵向排列
                     child: Column(
                       // 横向对齐模式
